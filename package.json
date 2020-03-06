@@ -1,0 +1,17 @@
+{
+  "name": "spider_pi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "nodemon ./app/main.js",
+    "fritz": "node ./app/main.js"
+  },
+  "author": "Fritz_179",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0"
+  }
+}
