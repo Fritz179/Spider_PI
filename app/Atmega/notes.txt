@@ -1,0 +1,30 @@
+avrdude -p m32 -c stk500v2
+avrdude -p m32 -c stk500v2 -U flash:w:Test2.hex -F
+
+cd C:\Projects\Spider_PI\Tests\Test2\Test2\Debug
+
+https://components101.com/sites/default/files/component_datasheet/16x2%20LCD%20Datasheet.pdf
+
+https://raspberrypi.stackexchange.com/questions/69204/open-chromium-full-screen-on-start-up
+https://stackoverflow.com/questions/49796523/raspberry-pi-wifi-hotspot-in-nodejs-configuration
+
+https://raspberrypi.stackexchange.com/questions/298/can-i-use-the-gpio-for-pulse-width-modulation-pwm
+https://projects.drogon.net/raspberry-pi/wiringpi/
+
+
+gpioSetPWMfrequency
+myGpioSetPwm
+
+mySetGpioOff
+mySetGpioOn
+
+SUPERLEVEL
+SUPERCYCLE
+
+dmaIVirt
+rawCbs_t * dmaCB2adr
+dmaIPage_t
+
+initPWM
+myGpioDelay
+PWM_DMAC_DREQ
