@@ -1,11 +1,15 @@
-var socket = io('/lcd');
+const socket = io('/atmega');
 
+const p = document.getElementById('p')
 const input = document.getElementById('input')
 const button = document.getElementById('button')
 
 button.onclick = () => {
   socket.emit('updateLCD', input.value)
+  p.innerHTML = input.value
 }
+
+socket.on('updateLCD', to => p.innerHTML = to)
 
 setupSlider('R1', 0)
 setupSlider('G1', 1)
@@ -26,7 +30,11 @@ function setupSlider(id, mask) {
     slider.nextElementSibling.innerHTML = `${id}: ${slider.value}`
   }
 
-  slider.nextElementSibling.innerHTML = `${id}: ${slider.value}`
+
+  socket.on('updateLeds', data => {
+    slider.value = data[mask]
+    slider.nextElementSibling.innerHTML = `${id}: ${data[mask]}`
+  })
 }
 
 const rele = document.getElementById('rele')
@@ -34,6 +42,8 @@ const rele = document.getElementById('rele')
 rele.onchange = () => {
   socket.emit('setRele', rele.checked)
 }
+
+socket.on('setRele', to => rele.checked = to)
 
 function capitalize(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);

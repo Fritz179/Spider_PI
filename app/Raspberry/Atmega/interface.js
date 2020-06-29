@@ -1,4 +1,4 @@
-const emit = require('./Atmega/emit.js')
+const emit = require('./emit.js')
 
 // #define updateRele 0b00000010 // bit0   => on or off
 // #define getValues  0b00000100 // bit1:0 => current, voltage, ptc
@@ -28,32 +28,33 @@ function emitLCD(toEmit, isInstruction) {
   ].concat(toEmit))
 }
 
-module.exports.writeLCD = text => {
+module.exports.updateLCD = text => {
   emitLCD([flagsEnum.lcd_Clear], true)
   emitLCD(text.split('').map(c => c.charCodeAt(0)), false)
 }
 
-module.exports.updateLeds = data => {
+module.exports.updateLeds = (mask, data) => {
   emit([
-    emitEnum.updateLeds | data.mask,
-  ].concat(data.data))
+    emitEnum.updateLeds | mask,
+  ].concat(data))
 }
 
 module.exports.setRele = to => {
   emit([emitEnum.updateRele | to])
 }
 
-module.exports.getVal = (mask, callback) => {
+module.exports.getVal = (mask, callback, count = 0) => {
   emit([emitEnum.getValues | mask, 0, 0, 0, 0, 0, 0, 0, 0, 0], buff => {
     if (!callback) return
     console.log(buff);
-    const num = buff.splice(3).map(c => String.fromCharCode(c)).join('')
-    console.log(num, +num);
-    if (Number.isNaN(+num)) {
-      return
-      //return module.exports.getVal(mask, callback)
+    const num = +buff.splice(3).map(c => String.fromCharCode(c)).join('')
+
+    if (Number.isNaN(num)) {
+      if (count > 10) return console.error('ISP Error')
+
+      return module.exports.getVal(mask, callback, ++count)
     }
 
-    callback(+num)
+    callback(num)
   })
 }

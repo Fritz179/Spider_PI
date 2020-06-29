@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV != 'PROD') {
+  return module.exports = () => { }
+}
+
 const spi = require('spi-device');
 
 const atmega = spi.open(0, 0, err => {
