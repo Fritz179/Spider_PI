@@ -6,7 +6,8 @@ const app = require('express')()
 const io = require('socket.io')()
 const path = require('path')
 const createRoute = require('./setup/createRoute.js')(app, io);
-const controller = require('./Raspberry/controller.js');
+const controller = require('./Raspberry/spider.js');
+const lcd = require('./Raspberry/atmega.js');
 
 app.use(express.static(path.join(__dirname, 'public')))
 
@@ -15,6 +16,31 @@ createRoute('sliders', socket => {
     controller.setLeg(data)
   })
 })
+
+nspLCD = createRoute('lcd', socket => {
+  socket.on('updateLCD', data => {
+    lcd.writeLCD(data)
+  })
+
+  socket.on('updateLeds', data => {
+    lcd.updateLeds(data)
+  })
+
+  socket.on('setRele', data => {
+    lcd.setRele(data)
+  })
+})
+
+let counter = 0;
+const messages = ['voltage', 'current', 'temperature'];
+setTimeout(() => {
+  setInterval(() => {
+    lcd.getVal(counter, val => {
+      nspLCD.emit(messages[counter++], val)
+      counter = counter > 2 ? 0 : counter;
+    })
+  }, 500)
+}, 5000)
 
 //connect the error page to all remaining requests (404)
 app.get('*', (req, res) => {

@@ -1,19 +1,5 @@
-const Leg = require('./Leg.js');
-const offsets = require('./offsets.json');
+const spider = require('./Spider/Spider.js');
 
-class Spider {
-  constructor() {
-    this.legs = [];
-
-    ['L', 'R'].forEach(side => {
-      [1, 2, 3].forEach(num => {
-        const leg = new Leg(side, num, offsets[side + num])
-
-        this.legs.push(leg)
-        this.legs[side + num] = leg
-      })
-    })
-  }
+module.exports.setLeg = ({leg, side, num, value}) => {
+  spider.legs[side + num].joints[leg].set(value / 255 * Math.PI * 2)
 }
-
-module.exports = new Spider()

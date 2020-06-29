@@ -7,7 +7,7 @@ module.exports = (app, io) => {
     })
 
     if (onConnect) {
-      io.of('/' + route).on('connection', socket => {
+      return io.of('/' + route).on('connection', socket => {
         onConnect(socket)
       })
     }

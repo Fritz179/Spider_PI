@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>LCD Controller</title>
+</head>
+<body>
+  <script src="/socket.io/socket.io.js"></script>
+  <link rel="stylesheet" href="./style.css">
+
+  <div>
+    <input type="text" id="input">
+    <button id="button">Update</button>
+  </div>
+
+  <div>
+    <div>
+      <input type="range" id="R1" name="R1" min="0" max="255" value="0">
+      <label for="R1">R1:</label>
+    </div>
+    <div>
+      <input type="range" id="G1" name="G1" min="0" max="255" value="0">
+      <label for="G1">G1:</label>
+    </div>
+    <div>
+      <input type="range" id="B1" name="B1" min="0" max="255" value="0">
+      <label for="B1">B1:</label>
+    </div>
+
+    <div>
+      <input type="range" id="R2" name="R2" min="0" max="255" value="0">
+      <label for="R2">R2:</label>
+    </div>
+    <div>
+      <input type="range" id="G2" name="G2" min="0" max="255" value="0">
+      <label for="G2">G2:</label>
+    </div>
+    <div>
+      <input type="range" id="B2" name="B2" min="0" max="255" value="0">
+      <label for="B2">B2:</label>
+    </div>
+  </div>
+
+  <div>
+    <label for="rele">Rele:</label>
+    <input type="checkbox" id="rele" name="rele">
+  </div>
+
+  <div>
+    <ul>
+      <li id="voltage">Voltage:</li>
+      <li id="current">Current:</li>
+      <li id="temperature">Temperature:</li>
+    </ul>
+  </div>
+
+  <script src="./main.js" charset="utf-8"></script>
+</body>
+</html>
