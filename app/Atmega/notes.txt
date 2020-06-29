@@ -3,14 +3,40 @@ avrdude -p m32 -c stk500v2 -U flash:w:Test2.hex -F
 
 cd C:\Projects\Spider_PI\Tests\Test2\Test2\Debug
 
+lcd datasheet
 https://components101.com/sites/default/files/component_datasheet/16x2%20LCD%20Datasheet.pdf
 
+chromium on startup
 https://raspberrypi.stackexchange.com/questions/69204/open-chromium-full-screen-on-start-up
-https://stackoverflow.com/questions/49796523/raspberry-pi-wifi-hotspot-in-nodejs-configuration
 
+honeypot
+https://andrewmichaelsmith.com/2013/08/raspberry-pi-wi-fi-honeypot/
+https://www.raspberrypi.org/forums/viewtopic.php?t=251402
+
+port forward? hostapd? DNSMasq?
+https://stackoverflow.com/questions/49796523/raspberry-pi-wifi-hotspot-in-nodejs-configuration
+http://www.cybersecurityguy.com/Building_a_Raspberry_Pi_Captive_Portal_Wi-Fi_Hotspot.pdf
+nano /etc/network/interfaces
+iptables ‐t nat ‐A POSTROUTING ‐o eth0 ‐j MASQUERADE
+iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 5000
+
+interface=wlan0
+          dhcp-range=192.168.2.2,192.168.2.50,255.255.255.0,12h
+          address=/#/192.168.2.1
+
+tests
+iptables -t nat -A PREROUTING -i wlan0 -p tcp --dport 80 -j REDIRECT --to-port 1234
+
+ip
+wlan0 = 192.168.43.158
+eth0  = 169.254.73.122
+
+sudo apt-get install hostapd=2.4
+
+
+pwm
 https://raspberrypi.stackexchange.com/questions/298/can-i-use-the-gpio-for-pulse-width-modulation-pwm
 https://projects.drogon.net/raspberry-pi/wiringpi/
-
 
 gpioSetPWMfrequency
 myGpioSetPwm

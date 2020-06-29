@@ -47,7 +47,7 @@ void LCDOverflow() {
 		return;
 	}
 
-	if (node->isInstruction & 1) {
+	if (node->isInstruction) {
 		PORTC &= ~(1 << 2);
 		} else {
 		PORTC |= 1 << 2;
